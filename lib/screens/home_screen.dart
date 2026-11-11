@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/providers/movies_provider.dart';
+import 'package:movies_app/providers/songs_provider.dart';
 import 'package:movies_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final moviesProvider = Provider.of<MoviesProvider>(context);
+    final moviesProvider = Provider.of<SongsProvider>(context);
 
     // print(moviesProvider.onDisplatMovie);
     return Scaffold(
@@ -22,10 +22,10 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               // Targetes principals
-              CardSwiper(movies: moviesProvider.onDisplatMovie),
+              CardSwiper(movies: moviesProvider.searchedArtist),
 
               // Slider de pel·licules
-              MovieSlider(movies: moviesProvider.mostPopularMovie),
+              MovieSlider(movies: moviesProvider.otherSongs),
               // Poodeu fer la prova d'afegir-ne uns quants, veureu com cada llista és independent
               // MovieSlider(),
               // MovieSlider(),

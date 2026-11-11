@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/providers/movies_provider.dart';
+import 'package:movies_app/providers/songs_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:movies_app/screens/screens.dart';
 
@@ -11,7 +11,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => MoviesProvider(), lazy: false)
+        ChangeNotifierProvider(create: (_) => SongsProvider(), lazy: false)
       ],
       child: MyApp(),
     );
