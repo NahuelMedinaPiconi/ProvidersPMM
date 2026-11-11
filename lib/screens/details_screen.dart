@@ -7,17 +7,17 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Movie peli = ModalRoute.of(context)!.settings.arguments as Movie;
+    final Song song = ModalRoute.of(context)!.settings.arguments as Song;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar(movie: peli),
+          _CustomAppBar(song: song),
           SliverList(
             delegate: SliverChildListDelegate([
-              _PosterAndTitile(movie: peli),
-              _Overview(movie: peli),
-              CastingCards(peliId: peli.id),
+              _PosterAndTitile(song: song),
+              _Overview(song: song),
+              // CastingCards(peliId: song.trackId),
             ]),
           ),
         ],
@@ -27,8 +27,8 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget {
-  final Movie movie;
-  const _CustomAppBar({required this.movie});
+  final Song song;
+  const _CustomAppBar({required this.song});
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +45,11 @@ class _CustomAppBar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
-          child: Text(movie.title, style: const TextStyle(fontSize: 16)),
+          child: Text(song.trackName, style: const TextStyle(fontSize: 16)),
         ),
         background: FadeInImage(
           placeholder: const AssetImage('assets/loading.gif'),
-          image: NetworkImage(movie.fulPosterPath),
+          image: NetworkImage(song.fullArtworkUrl),
           fit: BoxFit.cover,
         ),
       ),
@@ -58,8 +58,8 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitile extends StatelessWidget {
-  final Movie movie;
-  const _PosterAndTitile({required this.movie});
+  final Song song;
+  const _PosterAndTitile({required this.song});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _PosterAndTitile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: const AssetImage('assets/loading.gif'),
-              image: NetworkImage(movie.fulPosterPath),
+              image: NetworkImage(song.fullArtworkUrl),
               height: 150,
             ),
           ),
@@ -82,11 +82,11 @@ class _PosterAndTitile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(movie.title,
+                Text(song.trackCensoredName,
                     style: textTheme.headlineSmall,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2),
-                Text(movie.originalTitle,
+                Text(song.trackName,
                     style: textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2),
@@ -94,7 +94,7 @@ class _PosterAndTitile extends StatelessWidget {
                   children: [
                     const Icon(Icons.star_outline, size: 15, color: Colors.grey),
                     const SizedBox(width: 5),
-                    Text(movie.voteAverage.toString(), style: textTheme.bodySmall),
+                    Text(song.artistName),
                   ],
                 ),
               ],
@@ -108,15 +108,15 @@ class _PosterAndTitile extends StatelessWidget {
 
 class _Overview extends StatelessWidget {
 
-  final Movie movie;
+  final Song song;
 
-  const _Overview({required this.movie});
+  const _Overview({required this.song});
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        movie.overview,
+        song.overview,
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.titleMedium,
       ),

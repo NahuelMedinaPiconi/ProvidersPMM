@@ -11,7 +11,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SongsProvider(), lazy: false)
+        ChangeNotifierProvider(create: (_) => SongsProvider("Slipknot"), lazy: false)
       ],
       child: MyApp(),
     );

@@ -11,25 +11,34 @@ class SongsProvider extends ChangeNotifier {
   List<Song> searchedArtist = [];
   List<Song> otherSongs = [];
 
-  MoviesProvider(String artist) {
+  SongsProvider(String artist) {
     this.getSearchedArtist(artist);
     this.getOtherSongs();
   }
 
   getSearchedArtist(String artist) async {
-    var url =
-        Uri.https(_baseUrl, "search", {'term': artist, "media" : "music", "entity": "song", "attribute": "artistTerm"});
-    var result = await http.get(url);
-    
-    final searchedArtistResponse = ArtistResponse.fromRawJson(result.body);
-    searchedArtist = searchedArtistResponse.results;
+    try {
+      final url = Uri.https(_baseUrl, _endPoint, {
+        'term': artist,
+        'media': 'music',
+        'entity': 'song',
+        'attribute': 'artistTerm',
+        'limit': '10',
+      });
+      final result = await http.get(url);
+      debugPrint('Status: ${result.statusCode}');
 
-    notifyListeners();
+      final response = ArtistResponse.fromRawJson(result.body);
+      searchedArtist = response.results;
+      notifyListeners();
+    } catch (e, st) {
+      debugPrint('Error en getSearchedArtist: $e\n$st');
+    }
   }
 
   getOtherSongs() async {
     var url =
-        Uri.https(_baseUrl, _endPoint, {'term': "greatest+hits+rock", "media" : "music", "entity": "song"});
+        Uri.https(_baseUrl, _endPoint, {'term': "greatest hits rock", "media" : "music", "entity": "song"});
     var result = await http.get(url);
     
     final otherSongsResponse = ArtistResponse.fromRawJson(result.body);

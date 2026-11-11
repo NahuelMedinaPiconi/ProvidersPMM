@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/models/movie.dart';
+import 'package:movies_app/models/models.dart';
 
 class MovieSlider extends StatelessWidget {
   // const MovieSlider({Key? key}) : super(key: key);
 
-  final List<Movie> movies;
+  final List<Song> songs;
 
-  const MovieSlider({super.key, required this.movies});
+  const MovieSlider({super.key, required this.songs});
 
 
   @override
@@ -14,7 +14,7 @@ class MovieSlider extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
 
-    if (this.movies.length == 0) {
+    if (this.songs.length == 0) {
       return Container(
         width: double.infinity,
         height: size.height*0.5,
@@ -40,9 +40,9 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: movies.length,
+              itemCount: songs.length,
               itemBuilder: (_, int index) {
-                return _MoviePoster(movie: movies[index]);
+                return _MoviePoster(song: songs[index]);
               },
             ),
           )
@@ -54,9 +54,9 @@ class MovieSlider extends StatelessWidget {
 
 class _MoviePoster extends StatelessWidget {
 
-  final Movie movie;
+  final Song song;
 
-  const _MoviePoster({Key? key, required this.movie}) : super(key: key);
+  const _MoviePoster({Key? key, required this.song}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +68,12 @@ class _MoviePoster extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: movie),
+                arguments: song),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(movie.fulPosterPath),
+                image: NetworkImage(song.fullArtworkUrl),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -84,7 +84,7 @@ class _MoviePoster extends StatelessWidget {
             height: 5,
           ),
           Text(
-            movie.title,
+            song.trackName,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
