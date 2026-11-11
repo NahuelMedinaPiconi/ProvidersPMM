@@ -45,7 +45,15 @@ class _CustomAppBar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
-          child: Text(song.trackName, style: const TextStyle(fontSize: 16)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(song.trackCensoredName, style: const TextStyle(fontSize: 14)),
+              )),
+          ),
         ),
         background: FadeInImage(
           placeholder: const AssetImage('assets/loading.gif'),
@@ -82,17 +90,15 @@ class _PosterAndTitile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(song.trackCensoredName,
-                    style: textTheme.headlineSmall,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2),
                 Text(song.trackName,
                     style: textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2),
+                    maxLines: 2,
+                    ),
+                SizedBox(height: 10,),
                 Row(
                   children: [
-                    const Icon(Icons.star_outline, size: 15, color: Colors.grey),
+                    const Icon(Icons.music_note, size: 15, color: Colors.grey),
                     const SizedBox(width: 5),
                     Text(song.artistName),
                   ],
