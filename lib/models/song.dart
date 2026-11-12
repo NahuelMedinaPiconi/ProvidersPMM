@@ -34,9 +34,9 @@ class Song {
       final minutos = duracion.inMinutes;
       final segundos = (duracion.inSeconds % 60).toString().padLeft(2, '0');
 
-      return "$trackName, del álbum $collectionName por la banda $artistName. "
-          "Es una canción de género $primaryGenreName lanzada en ${releaseDate.year} (pista $trackNumber de $trackCount). "
-          "Tiene una duración de $minutos:$segundos minutos y un precio de $trackPrice $currency.";
+      return "$trackName, from the album $collectionName by $artistName. "
+          "It is a song of $primaryGenreName which was released in ${releaseDate.year} (track $trackNumber of $trackCount). "
+          "It has a duration of $minutos:$segundos minutes and a price on iTunes of $trackPrice $currency.";
     }
 
     String get fullArtworkUrl {

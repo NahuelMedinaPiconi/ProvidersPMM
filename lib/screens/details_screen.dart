@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/models.dart';
+import 'package:movies_app/widgets/audio_player.dart';
 import 'package:movies_app/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -100,7 +101,7 @@ class _PosterAndTitile extends StatelessWidget {
                   children: [
                     const Icon(Icons.music_note, size: 15, color: Colors.grey),
                     const SizedBox(width: 5),
-                    Text(song.artistName),
+                    Expanded(child: Text(song.artistName)),
                   ],
                 ),
               ],
@@ -119,13 +120,40 @@ class _Overview extends StatelessWidget {
   const _Overview({required this.song});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(
-        song.overview,
-        textAlign: TextAlign.justify,
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            song.overview,
+            textAlign: TextAlign.justify,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              color: Colors.grey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                        child: Text(
+                      "Enjoy a preview!",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    )),
+                    SongPreviewPlayer(url: song.previewUrl),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
